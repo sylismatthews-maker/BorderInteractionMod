@@ -10,14 +10,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ExampleMod implements ModInitializer {
     @Override
     public void onInitialize() {
-        // Initialization logic if needed
+        // Core initialization
     }
 
     @Mixin(MultiPlayerGameMode.class)
-    public static class MultiPlayerGameModeMixin {
+    public static class BorderMixin {
         @Inject(method = "isPlayerOutsideBorder", at = @At("HEAD"), cancellable = true)
-        private void forceAllowPacketsOutsideBorder(CallbackInfoReturnable<Boolean> cir) {
-            // Force the game client to believe the player is inside the border, preventing packet blocks
+        private void forceAllowPackets(CallbackInfoReturnable<Boolean> cir) {
             cir.setReturnValue(false);
         }
     }
